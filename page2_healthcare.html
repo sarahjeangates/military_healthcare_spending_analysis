@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--add later:--><link rel="stylesheet" href="visual.css" type="text/css">
+    <title>Sarah Gates Project 1</title>
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawAllSheets);
+
+        function drawAllSheets() {
+            drawSheetName('healthcare_millions', 'SELECT A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T', healthcareResponseHandler);
+            drawSheetName('healthcare_per_cap2', 'SELECT A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T', healthcarePerCapResponseHandler);
+        } //drawAllSheets
+
+        function drawSheetName(sheetName, query, responseHandler) {
+            var queryString = encodeURIComponent(query);
+            var query = new google.visualization.Query(
+                'https://docs.google.com/spreadsheets/d/1oWrkKckmVyL52hsTPW48dudy49NjD6vf/gviz/tq?sheet='
+                        + sheetName + '&headers=1&tq=' + queryString); //Query1
+                query.send(responseHandler);
+        } //drawSheetName
+
+
+        // CHECK ERROR FUNCTION
+
+        function healthcareResponseHandler(response) {
+            //checkError(response) //created above and applied to all subsequent functions first!
+            var data = response.getDataTable();
+            //data.sort({column: 1, desc: true});
+
+            var options = {
+                title: "Healthcare Spending by Country",
+                height: 800,
+                width: 1000,
+                vAxis: {title: 'Total Spending in USD (m)'},
+                hAxis: {title: 'Year'},
+                animation: {duration: 1000, startup: true, easing: 'out'},
+                focusTarget: 'datum',
+                series: {
+                    0: {color: '#D3D3D3'},
+                    1: {color: '#D3D3D3'},
+                    2: {color: '#D3D3D3'},
+                    3: {color: '#D3D3D3'},
+                    4: {color: '#32CD32', lineWidth: 4},
+                    5: {color: '#D3D3D3'},
+                    6: {color: '#228B22', lineWidth: 4},
+                    7: {color: '#D3D3D3'},
+                    8: {color: '#D3D3D3'},
+                    9: {color: '#D3D3D3'},
+                    10: {color: '#1E90FF', lineWidth: 4},
+                    11: {color: '#D3D3D3'},
+                    12: {color: '#D3D3D3'},
+                    13: {color: '#D3D3D3'},
+                    14: {color: '#D3D3D3'},
+                    15: {color: '#D3D3D3'},
+                    16: {color: '#D3D3D3'},
+                    17: {color: '#D3D3D3'},
+                    18: {color: '#20B2AA', lineWidth: 4},
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById("healthcare_div"));
+
+            chart.draw(data, options);
+        } //healthcareResponseHandler
+
+        function healthcarePerCapResponseHandler(response) {
+            //checkError(response) //created above and applied to all subsequent functions first!
+            var data = response.getDataTable();
+            //data.sort({column: 1, desc: true});
+
+            var options = {
+                title: "Healthcare Spending Per Capita by Country",
+                height: 800,
+                width: 1000,
+                vAxis: {title: 'Spending in USD'},
+                hAxis: {title: 'Year'},
+                animation: {duration: 1000, startup: true, easing: 'out'},
+                focusTarget: 'datum',
+                series: {
+                    0: {color: '#D3D3D3'},
+                    1: {color: '#D3D3D3'},
+                    2: {color: '#D3D3D3'},
+                    3: {color: '#D3D3D3'},
+                    4: {color: '#32CD32', lineWidth: 4},
+                    5: {color: '#D3D3D3'},
+                    6: {color: '#228B22', lineWidth: 4},
+                    7: {color: '#D3D3D3'},
+                    8: {color: '#D3D3D3'},
+                    9: {color: '#D3D3D3'},
+                    10: {color: '#1E90FF', lineWidth: 4},
+                    11: {color: '#D3D3D3'},
+                    12: {color: '#D3D3D3'},
+                    13: {color: '#D3D3D3'},
+                    14: {color: '#D3D3D3'},
+                    15: {color: '#D3D3D3'},
+                    16: {color: '#D3D3D3'},
+                    17: {color: '#D3D3D3'},
+                    18: {color: '#20B2AA', lineWidth: 4},
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById("healthcare_per_cap_div"));
+
+            chart.draw(data, options);
+        } //healthcarePerCapResponseHandler
+
+
+    </script>
+
+<!--Sidebar-->
+<style>
+    body {
+    font-family: "Lato", sans-serif;
+    }
+
+    .sidenav {
+        height: 100%;
+        width: 330px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+
+    .sidenav a {
+        padding: 10px 20px 6px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        color: #818181;
+        display: block;
+    }
+
+    .sidenav a:hover {
+        color: #f1f1f1;
+    }
+
+    .main {
+        margin-left: 300px; /* Same as the width of the sidenav */
+        font-size: 28px; /* Increased text to enable scrolling */
+        padding: 0px 10px;
+    }
+
+    @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    }
+
+    .buttonGr {
+        background-color: #e7e7e7; 
+        color: #111;
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;} /* Gray */ 
+    .buttonBl {
+        background-color: #111;
+        color:#e7e7e7;
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;} /* Black */
+
+</style>
+<!--endSidebar-->
+
+</head>
+
+
+
+<body>
+    <!--Main-->
+    <div id="main">
+        <!--Logo-->
+        <div id="logo">
+            <!--Title-->
+            <div id="title">
+                <br><br>
+                <h1>
+                    <img src="images/map.png" alt="map" style="float:right;width:220px;height:150px;padding-right:200px">
+                    Where Are Your Priorities?                   
+                </h1>
+                <br>
+                    <!--Title_sub-->
+                    <div id="title_sub">
+                    <h3><i>An analysis of spending priorities for G20 nations in the areas of...</i></h3> 
+                    <br>
+                    <h3><i>military, healthcare, and education</i></h3> 
+                    </div>
+                    <!--endTitle_sub-->
+            </div>
+            <!--endTitle-->
+        </div>
+        <!--endLogo-->
+
+        <!--Sidebar-->
+        <div class="sidenav">
+            <br><br><br><br><br><br><br><br><br><br>
+            <a href="index.html">i. Geographic Overview</a>
+            <a href="page2_gdp.html">ii. Trends Over Time</a>
+            <a href="page3_gdp.html">iii. Spending Comparisons</a>
+            <a href="page4_final.html">iv. Priorities Evaluated</a>
+        </div>
+        <!--endSidebar-->
+
+        <!--Menubar-->
+        <div id="menubar">
+            <ul class="buttons">
+                <li><button class="button buttonGr"><a href="page2_gdp.html" style="color:black">GDP</a></button></li>
+                <li><button class="button buttonGr"><a href="page2_military.html" style="color:black">Military</a></button></li>
+                <li class="selected"><button class="button buttonBl"><a href="page2_healthcare.html" style="color:white">Healthcare</a></button></li>
+                <li><button class="button buttonGr"><a href="page2_education.html" style="color:black">Education</a></button></li>
+                <li><button class="button whitebox"></button></li>
+            </ul>
+        </div>
+
+
+        <!--Charts-->
+        <br>
+        <p style="font-size:12px;">Regarding total healthcare spending, the US, China, Germany, and Japan are the top four spenders in the G20. Although China was the second biggest spender in 2017, comparing this to their extremely low per capita spending is quite sad.</p>
+        <br><br>
+        <h4><i>Hover over a point on a line to see the spending value</i></h4>
+        <div id="healthcare_div" style="width: 900px; height: 800px"></div> 
+        <div id="healthcare_per_cap_div" style="width: 900px; height: 500px"></div>
+        <!--endCharts-->
+    </div>
+    <!--endMain-->
+</body>
+</html>

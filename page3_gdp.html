@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--add later:--><link rel="stylesheet" href="visual.css" type="text/css">
+    <title>Sarah Gates Project 1</title>
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawAllSheets);
+
+        function drawAllSheets() {
+            drawSheetName('comparison_2013', 'SELECT A,B,C,D,E', compareResponseHandler);
+        } //drawAllSheets
+
+        function drawSheetName(sheetName, query, responseHandler) {
+            var queryString = encodeURIComponent(query);
+            var query = new google.visualization.Query(
+                'https://docs.google.com/spreadsheets/d/1oWrkKckmVyL52hsTPW48dudy49NjD6vf/gviz/tq?sheet='
+                        + sheetName + '&headers=1&tq=' + queryString); //Query1
+                query.send(responseHandler);
+        } //drawSheetName
+
+
+        // CHECK ERROR FUNCTION
+
+
+        function compareResponseHandler(response) {
+            // checkError(response)
+            var data = response.getDataTable();
+            data.sort({column: 1, desc: true});
+
+            var options = {
+                title: 'Comparison Per Capita in 2013',
+                hAxis: {title: 'Military Spending', maxValue: 13000, minValue: -100},
+                vAxis: {title: 'Healthcare & Education Spending', maxValue: 13000, minValue: -100},
+                colorAxis: {colors: ['#e84a5f','#ff847c','#feceab', '#99b898'], legend: {position:"bottom"}},
+            };
+
+            var chart = new google.visualization.BubbleChart(document.getElementById('compare_div'));
+
+            chart.draw(data, options);
+        }//compareResponseHandler 
+
+
+    </script>
+
+<!--Sidebar-->
+<style>
+    body {
+    font-family: "Lato", sans-serif;
+    }
+
+    .logo {
+        width:100%;
+        height: 200px;
+        background-color:#e7e7e7;
+        top: 0;
+        left: 330px;
+    }
+
+    .sidenav {
+        height: 100%;
+        width: 330px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+
+    .sidenav a {
+        padding: 10px 20px 6px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        color: #818181;
+        display: block;
+    }
+
+    .sidenav a:hover {
+        color: #f1f1f1;
+    }
+
+    .main {
+        margin-left: 300px; /* Same as the width of the sidenav */
+        font-size: 28px; /* Increased text to enable scrolling */
+        padding: 200px 10px;
+    }
+
+    @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    }
+
+    .buttonGr {
+        background-color: #e7e7e7; 
+        color: #111;
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;} /* Gray */ 
+    .buttonBl {
+        background-color: #111;
+        color:#e7e7e7;
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;} /* Black */
+
+</style>
+<!--endSidebar-->
+
+</head>
+
+
+
+<body>
+    <!--Main-->
+    <div id="main">
+        <!--Logo-->
+        <div class="logo">
+            <!--Title-->
+            <div id="title">
+                <br><br>
+                <h1>
+                    <img src="images/map.png" alt="map" style="float:right;width:220px;height:150px;padding-right:200px">
+                    Where Are Your Priorities?                   
+                </h1>
+                <br>
+                    <!--Title_sub-->
+                    <div id="title_sub">
+                    <h3>
+                        <i>An analysis of spending priorities for G20 nations in the areas of...</i>
+                    </h3> 
+                    <br>
+                    <h3><i>military, healthcare, and education</i></h3> 
+                    </div>
+                    <!--endTitle_sub-->
+            </div>
+            <!--endTitle-->
+        </div>
+        <!--endLogo-->
+
+        <!--Sidebar-->
+        <div class="sidenav">
+            <br><br><br><br><br><br><br><br><br><br>
+            <a href="index.html">i. Geographic Overview</a>
+            <a href="page2_gdp.html">ii. Trends Over Time</a>
+            <a href="page3_gdp.html">iii. Spending Comparisons</a>
+            <a href="page4_final.html">iv. Priorities Evaluated</a>
+        </div>
+        <!--endSidebar-->
+
+        <!--Menubar-->
+        <div id="menubar">
+            <ul class="buttons">
+                <li class="selected"><button class="button buttonBl"><a href="page3_gdp.html" style="color:white">Per Capita</a></button></li>
+                <li><button class="button buttonGr"><a href="page3_growth.html" style="color:black">Growth</a></button></li>
+                <li><button class="button buttonGr"><a href="page3_country.html" style="color:black">Country Focus</a></button></li>
+                <li><button class="button whitebox"></button></li>
+            </ul>
+        </div>
+
+
+        <!--Charts-->
+        <p style="font-size:12px;">Now we will look at some other creative ways to compare spending priorities of the G20 countries. Here, healthcare and education spending per capita are combined and compared with military spending on an even scale. Again, this is 2013 data because it is the most complete and I want to compare concrete numbers (instead of just estimates for more recent years). To provide more context, the color of the bubble indicates GDP per capita and the size indicates population. It’s clear that globally, military spending tends to be more of a priority at a per capita level, which serves as a form of normalization. </p>
+        <br>
+        <h4><i>Hover over a bubble</i></h4>
+        <br>
+        <div id="compare_div" style="width: 900px; height: 600px"></div> 
+        <!--endCharts-->
+    </div>
+    <!--endMain-->
+</body>
+</html>

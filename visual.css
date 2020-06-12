@@ -1,0 +1,82 @@
+html{
+    height: 100%;
+}
+
+* {
+    margin: 0 0 0 0; /*distance between contents of site - flexible to each 4 side ie. "margin: 3 10 7 3" four different margin for each side*/
+    padding: 0 0 0 0; /*space between content and page border - DOUBLE CHECK THESE DEFINITION*/
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    /*font: normal .78em arial, helvetica, sans-serif;*/
+    margin-left: 330px;
+    margin-top: 0px;
+}
+
+#logo {
+    width:100%;
+    height: 200px;
+    background-color:#e7e7e7;
+    top: 0;
+    left: 330px;
+}
+
+#title {
+    margin-left: 50px;
+}
+
+
+#title_sub {
+    margin-left: 100px;
+}
+
+#menubar ul li {
+    float: left;
+    height: 70px;
+    margin: 0 0 6px 0;
+    padding: 0 0 4px 5px;
+    position: relative;
+    z-index: 1;
+    list-style: none;
+    display: block;
+    text-decoration: none;
+    border: 0;
+}
+
+#menubar div.selected a {
+    height: 25px;
+    color: #111;
+    padding: 0 0 0 0;
+}
+
+h4 {
+    margin-left: 20px;
+}
+
+#main p {
+    margin-left: 30px;
+    margin-right: 20px;
+    font-size: 12px;
+
+}
+
+#compare_div {
+    margin-left: 100px;
+    margin-top: -10px;
+}
+
+#growth_div {
+    margin-top: -10px;
+}
+
+.whitebox {
+    background-color: white;
+    border: none;
+    padding: 15px 30px;
+    display: inline-block;
+    margin: 4px 2px;} /* white box */
+
+a {
+    text-decoration: none;
+  }

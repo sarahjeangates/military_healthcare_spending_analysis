@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="visual.css" type="text/css">
+    <title>Sarah Gates Project 1</title>
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawAllSheets);
+
+        function drawAllSheets() {
+            drawSheetName('comparison2_2013', 'SELECT A,T', usaPieResponseHandler);
+            drawSheetName('comparison2_2013', 'SELECT A,H', germanyPieResponseHandler);
+            drawSheetName('comparison2_2013', 'SELECT A,L', japanPieResponseHandler);
+            drawSheetName('comparison2_2013', 'SELECT A,C', australiaPieResponseHandler);
+            drawSheetName('comparison2_2013', 'SELECT A,F', chinaPieResponseHandler);
+            drawSheetName('comparison2_2013', 'SELECT A,I', indiaPieResponseHandler);
+            drawSheetName('comparison2_2013', 'SELECT A,P', saudiPieResponseHandler);
+        } //drawAllSheets
+
+        function drawSheetName(sheetName, query, responseHandler) {
+            var queryString = encodeURIComponent(query);
+            var query = new google.visualization.Query(
+                'https://docs.google.com/spreadsheets/d/1oWrkKckmVyL52hsTPW48dudy49NjD6vf/gviz/tq?sheet='
+                        + sheetName + '&headers=1&tq=' + queryString); //Query1
+                query.send(responseHandler);
+        } //drawSheetName
+
+
+        // CHECK ERROR FUNCTION
+
+
+        function usaPieResponseHandler(response) {
+            // checkError(response)
+            var data = response.getDataTable();
+            data.sort({column: 1, desc: true});
+
+            var options = {
+                colors: ['#D3D3D3','#87CEFA','#FFD700','#3CB371'],
+                title: 'USA',
+                legend: {position: "top"},
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('usa_pie_div'));
+
+            chart.draw(data, options);
+        }//usaPieResponseHandler
+
+        function germanyPieResponseHandler(response) {
+            // checkError(response)
+            var data = response.getDataTable();
+            data.sort({column: 1, desc: true});
+
+            var options = {
+                colors: ['#D3D3D3','#87CEFA','#FFD700','#3CB371'],
+                title: 'Germany',
+                legend: {position: "top"},
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('germany_pie_div'));
+
+            chart.draw(data, options);
+        }//germanyPieResponseHandler
+
+        function japanPieResponseHandler(response) {
+            // checkError(response)
+            var data = response.getDataTable();
+            data.sort({column: 1, desc: true});
+
+            var options = {
+                colors: ['#D3D3D3','#87CEFA','#FFD700','#3CB371'],
+                title: 'Japan',
+                legend: {position: "top"},
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('japan_pie_div'));
+
+            chart.draw(data, options);
+        }//japanPieResponseHandler
+
+        function australiaPieResponseHandler(response) {
+            // checkError(response)
+            var data = response.getDataTable();
+            data.sort({column: 1, desc: true});
+
+            var options = {
+                colors: ['#D3D3D3','#87CEFA','#FFD700','#3CB371'],
+                title: 'Australia',
+                legend: 'none',
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('australia_pie_div'));
+
+            chart.draw(data, options);
+        }//australiaPieResponseHandler
+
+
+        function chinaPieResponseHandler(response) {
+            // checkError(response)
+            var data = response.getDataTable();
+            data.sort({column: 1, desc: true});
+
+            var options = {
+                colors: ['#D3D3D3','#87CEFA','#3CB371'],
+                title: 'China (Education not reported)',
+                legend: 'none',
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('china_pie_div'));
+
+            chart.draw(data, options);
+        }//chinaPieResponseHandler
+
+
+        function indiaPieResponseHandler(response) {
+            // checkError(response)
+            var data = response.getDataTable();
+            data.sort({column: 1, desc: true});
+
+            var options = {
+                colors: ['#D3D3D3','#FFD700','#87CEFA','#3CB371'],
+                title: 'India',
+                legend: 'none',
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('india_pie_div'));
+
+            chart.draw(data, options);
+        }//indiaPieResponseHandler
+
+
+        function saudiPieResponseHandler(response) {
+            // checkError(response)
+            var data = response.getDataTable();
+            data.sort({column: 1, desc: true});
+
+            var options = {
+                colors: ['#D3D3D3','#3CB371','#87CEFA'],
+                title: 'Saudi Arabia (Education not reported)',
+                legend: 'none',
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('saudi_pie_div'));
+
+            chart.draw(data, options);
+        }//saudiPieResponseHandler
+
+    </script>
+
+<!--Sidebar-->
+<style>
+    body {
+    font-family: "Lato", sans-serif;
+    }
+
+    .sidenav {
+        height: 100%;
+        width: 330px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+
+    .sidenav a {
+        padding: 10px 20px 6px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        color: #818181;
+        display: block;
+    }
+
+    .sidenav a:hover {
+        color: #f1f1f1;
+    }
+
+    .main {
+        margin-left: 160px; /* Same as the width of the sidenav */
+        font-size: 28px; /* Increased text to enable scrolling */
+        padding: 0px 10px;
+    }
+
+    @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    }
+
+    .buttonGr {
+        background-color: #e7e7e7; 
+        color: #111;
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;} /* Gray */ 
+    .buttonBl {
+        background-color: #111;
+        color:#e7e7e7;
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;} /* Black */
+
+</style>
+<!--endSidebar-->
+
+</head>
+
+
+
+<body>
+    <!--Main-->
+    <div id="main">
+        <!--Logo-->
+        <div id="logo">
+            <!--Title-->
+            <div id="title">
+                <br><br>
+                <h1>
+                    <img src="images/map.png" alt="map" style="float:right;width:220px;height:150px;padding-right:200px">
+                    Where Are Your Priorities?                   
+                </h1>
+                <br>
+                    <!--Title_sub-->
+                    <div id="title_sub">
+                    <h3><i>An analysis of spending priorities for G20 nations in the areas of...</i></h3> 
+                    <br>
+                    <h3><i>military, healthcare, and education</i></h3> 
+                    </div>
+                    <!--endTitle_sub-->
+            </div>
+            <!--endTitle-->
+        </div>
+        <!--endLogo-->
+
+        <!--Sidebar-->
+        <div class="sidenav">
+            <br><br><br><br><br><br><br><br><br><br>
+            <a href="index.html">i. Geographic Overview</a>
+            <a href="page2_gdp.html">ii. Trends Over Time</a>
+            <a href="page3_gdp.html">iii. Spending Comparisons</a>
+            <a href="page4_final.html">iv. Priorities Evaluated</a>
+        </div>
+        <!--endSidebar-->
+
+        <!--Menubar-->
+        <div id="menubar">
+            <ul class="buttons">
+                <li><button class="button buttonGr"><a href="page3_gdp.html" style="color:black">Per Capita</a></button></li>
+                <li><button class="button buttonGr"><a href="page3_growth.html" style="color:black">Growth</a></button></li>
+                <li class="selected"><button class="button buttonBl"><a href="page3_country.html" style="color:white">Country Focus</a></button></li>
+                <li><button class="button whitebox"></button></li>
+            </ul>
+        </div>
+
+
+        <!--Charts-->
+        <br>
+        <p style="font-size:12px;">Here, seven countries that came up repeatedly in the analysis are highlighted. Each pie chart breaks down the percentage of healthcare, education, and military spending compared to the rest of its overall GDP.</p>
+        <br><br>
+        <h4><i>Hover over a slice to see the spending percentage</i></h4>
+        <br>
+        <h4>Military, Healthcare, and Education Spending as a % of GDP by Country</h4>
+        <div id="usa_pie_div" style="width: 600px; height: 600px"></div> 
+        <div id="germany_pie_div" style="width: 600px; height: 600px"></div>
+        <div id="japan_pie_div" style="width: 600px; height: 600px"></div>
+        <div id="australia_pie_div" style="width: 600px; height: 600px"></div> 
+        <div id="china_pie_div" style="width: 600px; height: 600px"></div> 
+        <div id="india_pie_div" style="width: 600px; height: 600px"></div> 
+        <div id="saudi_pie_div" style="width: 600px; height: 600px"></div> 
+        <!--endCharts-->
+    </div>
+    <!--endMain-->
+</body>
+</html>

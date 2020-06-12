@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--add later:--><link rel="stylesheet" href="visual.css" type="text/css">
+    <title>Sarah Gates Project 1</title>
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawAllSheets);
+
+        function drawAllSheets() {
+            drawSheetName('gdp_per_cap', 'SELECT B,L', gdpMapResponseHandler);
+        } //drawAllSheets
+
+        function drawSheetName(sheetName, query, responseHandler) {
+            var queryString = encodeURIComponent(query);
+            var query = new google.visualization.Query(
+                'https://docs.google.com/spreadsheets/d/1oWrkKckmVyL52hsTPW48dudy49NjD6vf/gviz/tq?sheet='
+                        + sheetName + '&headers=1&tq=' + queryString); //Query1
+                query.send(responseHandler);
+        } //drawSheetName
+
+
+        // CHECK ERROR FUNCTION
+
+
+        function gdpMapResponseHandler(response) {
+            // checkError(response)
+            var data = response.getDataTable();
+            data.sort({column: 1, desc: true});
+
+            var options = {
+                colorAxis : {colors: ['#e84a5f','#ff847c','#feceab', '#99b898']},
+                title: 'GDP Per Capita (USD)',
+                legend: {position: "top"},
+            };
+
+            var chart = new google.visualization.GeoChart(document.getElementById('gdp_map_div'));
+
+            chart.draw(data, options);
+        }//gdpMapResponseHandler 
+
+
+    </script>
+
+<!--Sidebar-->
+<style>
+body {
+    font-family: "Lato", sans-serif;
+    }
+
+    .sidenav {
+        height: 100%;
+        width: 330px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+
+    .sidenav a {
+        padding: 10px 20px 6px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        color: #818181;
+        display: block;
+    }
+
+    .sidenav a:hover {
+        color: #f1f1f1;
+    }
+
+    .main {
+        margin-left: 300px; /* Same as the width of the sidenav */
+        font-size: 28px; /* Increased text to enable scrolling */
+        padding: 0px 10px;
+    }
+
+    @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    }
+
+    .buttonGr {
+        background-color: #e7e7e7; 
+        color: #111;
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;} /* Gray */ 
+
+    .buttonBl {
+        background-color: #111;
+        color:#e7e7e7;
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;} /* Black */
+
+</style>
+<!--endSidebar-->
+
+</head>
+
+
+
+<body>
+    <!--Main-->
+    <div id="main">
+        <!--Logo-->
+        <div id="logo">
+            <!--Title-->
+            <div id="title">
+                <br><br>
+                <h1>
+                    <img src="images/map.png" alt="map" style="float:right;width:220px;height:150px;padding-right:200px">
+                    Where Are Your Priorities?                   
+                </h1>
+                <br>
+                    <!--Title_sub-->
+                    <div id="title_sub">
+                    <h3><i>An analysis of spending priorities for G20 nations in the areas of...</i></h3> 
+                    <br>
+                    <h3><i>military, healthcare, and education</i></h3> 
+                    </div>
+                    <!--endTitle_sub-->
+            </div>
+            <!--endTitle-->
+        </div>
+        <!--endLogo-->
+
+        <!--Sidebar-->
+        <div class="sidenav">
+            <br><br><br><br><br><br><br><br><br><br>
+            <a href="index.html">i. Geographic Overview</a>
+            <a href="page2_gdp.html">ii. Trends Over Time</a>
+            <a href="page3_gdp.html">iii. Spending Comparisons</a>
+            <a href="page4_final.html">iv. Priorities Evaluated</a>
+        </div>
+        <!--endSidebar-->
+
+        <!--Menubar-->
+        <div id="menubar">
+            <ul class="buttons">
+                <li class="selected"><button class="button buttonBl"><a href="index.html" style="color:white">GDP</a></button></li>
+                <li><button class="button buttonGr"><a href="page1_military.html" style="color:black">Military</a></button></li>
+                <li><button class="button buttonGr"><a href="page1_healthcare.html" style="color:black">Healthcare</a></button></li>
+                <li><button class="button buttonGr"><a href="page1_education.html" style="color:black">Education</a></button></li>
+                <li><button class="button whitebox"></button></li>
+            </ul>
+            <span style="display:inline-block; width: 50px;"></span>
+        </div>
+
+
+        <!--Charts-->
+        <p style="font-size:12px;">We will start by evaluating the GDP per capita in 2018 to get an idea of how wealthy the G20 countries are in relation to each other with the most recent data available. The first thing that jumps out is the US and Australia as they are the only two green countries on the map. There seem to be many countries with exceptionally low GDP per capita, as indicated by the larger number of red countries.</p>
+        <br>
+        <h4><i>Hover over a country to see the spending value</i></h4>
+        <br>
+        <h4>GDP Per Capita in 2018</h4>
+        <br>
+        <div id="gdp_map_div" style="width: 900px; height: 600px"></div> 
+        <!--endCharts-->
+    </div>
+    <!--endMain-->
+</body>
+</html>
